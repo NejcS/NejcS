@@ -34,7 +34,6 @@
         container: "map",
         // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
         style: "mapbox://styles/mapbox/streets-v12",
-        center: [46.1366, 14.5934],
         pitch: 60, // pitch in degrees
         bearing: -60, // bearing in degrees
         zoom: 14,
@@ -87,15 +86,25 @@
       // });
       // sensor.start();
 
+      navigator.geolocation.getCurrentPosition((position) => {
+        map.setCenter({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
 
-      window.addEventListener("deviceorientation", function(event) {
-        map.setBearing(360 - event.alpha);
-      }, true);
+        addDeviceOrientationListeners();
+      });
 
-      window.addEventListener("compassneedscalibration", function(event) {
-          alert('Your compass needs calibrating! Wave your device in a figure-eight motion');
-          event.preventDefault();
-      }, true);
+      function addDeviceOrientationListeners() {
+        window.addEventListener("deviceorientation", function(event) {
+          map.setBearing(360 - event.alpha);
+        }, true);
+
+        window.addEventListener("compassneedscalibration", function(event) {
+            alert('Your compass needs calibrating! Wave your device in a figure-eight motion');
+            event.preventDefault();
+        }, true);
+      }
     </script>
   </body>
 </html>
