@@ -80,11 +80,11 @@
       const sensor = new AbsoluteOrientationSensor(options);
 
       sensor.addEventListener("reading", () => {
-        // model is a Three.js object instantiated elsewhere.
-        model.quaternion.fromArray(sensor.quaternion).inverse();
+        alert(sensor.quaternion);
       });
 
       sensor.addEventListener("error", (error) => {
+        alert('error');
         if (event.error.name === "NotReadableError") {
           console.log("Sensor is not available.");
         }
