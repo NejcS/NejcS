@@ -79,12 +79,11 @@
       const options = { frequency: 60, referenceFrame: "device" };
       const sensor = new AbsoluteOrientationSensor(options);
 
-      sensor.addEventListener("reading", () => {
-        alert(sensor.quaternion);
+      sensor.addEventListener("reading", (e) => {
+        console.log(sensor.quaternion, e);
       });
 
       sensor.addEventListener("error", (error) => {
-        alert('error');
         if (event.error.name === "NotReadableError") {
           console.log("Sensor is not available.");
         }
